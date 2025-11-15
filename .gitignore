@@ -58,6 +58,11 @@ bootlog*.txt
 test/
 temp_*.yaml
 
+# Veraltete/Alternative Konfigurationsdateien (lokal behalten, nicht in Git)
+g13_led_stehlampe.yaml
+led_t8_controller.yaml
+home_assistant_card_wifi.yaml
+
 # Kompilierte Dateien
 *.o
 *.a
