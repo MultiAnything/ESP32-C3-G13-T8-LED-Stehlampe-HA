@@ -281,6 +281,6 @@
 ---
 
 **Autor:** MultiAnything - [@MultiAnything](https://github.com/MultiAnything)  
-**Lizenz:** Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)  
+**Lizenz:** [ESPHome MIT License](https://github.com/esphome/esphome/blob/dev/LICENSE)  
 **⚠️ Disclaimer:** Alle Angaben ohne Gewähr. Die Werte basieren auf Messungen unter spezifischen Bedingungen und können je nach Umgebung, Hardware-Variationen und Konfiguration abweichen.
 

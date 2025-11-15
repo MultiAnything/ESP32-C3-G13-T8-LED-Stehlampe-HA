@@ -226,18 +226,12 @@ Siehe `DOKUMENTATION.md` für häufige Probleme und Lösungen.
 
 ## 📄 Lizenz
 
-Dieses Projekt ist lizenziert unter der **Creative Commons Attribution-NonCommercial 4.0 International License** (CC BY-NC 4.0).
+Dieses Projekt basiert auf **ESPHome** und verwendet die gleiche Lizenz.
 
-**Erlaubt:**
-- ✅ Teilen und Kopieren des Materials
-- ✅ Anpassen und Modifizieren
-- ✅ Verwendung für nicht-kommerzielle Zwecke
+**ESPHome Lizenz:** [MIT License](https://github.com/esphome/esphome/blob/dev/LICENSE)
 
-**Nicht erlaubt:**
-- ❌ Kommerzielle Nutzung ohne Genehmigung
-- ❌ Verwendung ohne Namensnennung
-
-Siehe [LICENSE](LICENSE) für vollständige Lizenzbedingungen.
+Die vollständigen Lizenzbedingungen von ESPHome finden Sie unter:
+https://github.com/esphome/esphome/blob/dev/LICENSE
 
 ## 👤 Autor
 

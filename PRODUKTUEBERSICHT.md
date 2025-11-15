@@ -414,5 +414,5 @@
 **Firmware:** ESPHome 2025.5.2  
 **Hardware:** ESP32-C3 DevKitM-1  
 **Autor:** MultiAnything - [@MultiAnything](https://github.com/MultiAnything)  
-**Lizenz:** Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)
+**Lizenz:** [ESPHome MIT License](https://github.com/esphome/esphome/blob/dev/LICENSE)
 
