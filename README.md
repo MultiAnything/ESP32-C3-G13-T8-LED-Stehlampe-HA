@@ -124,7 +124,10 @@ Siehe `SICHERHEITSANALYSE.md` für Details.
 
 - **Standby:** 0,20W (43% Reduktion gegenüber Standard)
 - **Betrieb:** 18,20W (Lampe + Controller)
-- **ESP32-C3 SuperMini CPU Temperatur:** 50,6°C (20°C niedriger als Standard)
+- **ESP32-C3 SuperMini CPU Temperatur:** 
+  - **Dokumentiert:** 50,6°C (20°C niedriger als Standard)
+  - **Gemessen (Standby):** 43,9°C (26-27°C niedriger als Standard)
+  - **Typischer Bereich:** 44-51°C (je nach Last und Umgebungstemperatur)
 
 **⚠️ Disclaimer:** Alle Angaben ohne Gewähr. Die Werte basieren auf Messungen unter spezifischen Bedingungen und können je nach Umgebung, Hardware-Variationen und Konfiguration abweichen.
 

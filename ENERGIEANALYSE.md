@@ -8,12 +8,17 @@
 - **RAM-Verbrauch:** 17,1% (56.036 Bytes)
 
 ### Nachher (ohne Bluetooth & Web Server):
-- **ESP32-C3 SuperMini CPU Temperatur:** 50,6°C
+- **ESP32-C3 SuperMini CPU Temperatur:** 
+  - **Unter Last:** 50,6°C
+  - **Standby (gemessen):** 43,9°C
+  - **Typischer Bereich:** 44-51°C
 - **Flash-Verbrauch:** 49,9% (914.966 Bytes)
 - **RAM-Verbrauch:** 11,1% (36.356 Bytes)
 
 ### Temperaturreduktion:
-- **ΔT = 20,0°C** (70,6°C → 50,6°C)
+- **ΔT (unter Last) = 20,0°C** (70,6°C → 50,6°C)
+- **ΔT (Standby) = 26,7°C** (70,6°C → 43,9°C)
+- **Typischer Bereich:** 20-27°C Reduktion je nach Betriebszustand
 
 **⚠️ Disclaimer:** Alle Angaben ohne Gewähr. Die Werte basieren auf Messungen unter spezifischen Bedingungen und können je nach Umgebung, Hardware-Variationen und Konfiguration abweichen.
 
@@ -168,7 +173,7 @@
 
 | Metrik | Vorher | Nachher | Verbesserung |
 |--------|--------|---------|--------------|
-| **ESP32-C3 SuperMini CPU Temperatur** | 70,6°C | 50,6°C | **-20,0°C** (-28%) |
+| **ESP32-C3 SuperMini CPU Temperatur** | 70,6°C | 44-51°C | **-20,0 bis -26,7°C** (-28% bis -38%) |
 | **Flash-Verbrauch** | 84,1% | 49,9% | **-34,2%** |
 | **RAM-Verbrauch** | 17,1% | 11,1% | **-6,0%** |
 | **Energieverbrauch (Standby)** | ~0,65 W | ~0,35 W | **-0,30 W** (-46%) |
@@ -193,9 +198,12 @@
 
 ### Temperaturreduktion:
 
-- **ESP32-C3 SuperMini CPU Temperatur:** 50,6°C (20°C niedriger als Standard)
-- **20,0°C Reduktion** (70,6°C → 50,6°C)
-- **28% relative Reduktion**
+- **ESP32-C3 SuperMini CPU Temperatur:** 
+  - **Unter Last:** 50,6°C (20°C niedriger als Standard)
+  - **Standby (gemessen):** 43,9°C (26,7°C niedriger als Standard)
+  - **Typischer Bereich:** 44-51°C
+- **20,0-26,7°C Reduktion** (70,6°C → 44-51°C)
+- **28-38% relative Reduktion** (je nach Betriebszustand)
 - Deutlich unter kritischer Temperatur (85°C)
 
 ### Vorteile:
@@ -261,7 +269,9 @@
 **Die Deaktivierung von Bluetooth und Web Server hat zu einer erheblichen Verbesserung geführt:**
 
 - ✅ **46% weniger Energieverbrauch** im Standby
-- ✅ **20°C niedrigere Temperatur** (28% Reduktion)
+- ✅ **20-27°C niedrigere Temperatur** (28-38% Reduktion, je nach Betriebszustand)
+  - **Unter Last:** 50,6°C (20°C Reduktion)
+  - **Standby:** 43,9°C (26,7°C Reduktion)
 - ✅ **41% kleinere Firmware**
 - ✅ **Längere Lebensdauer** durch niedrigere Temperatur
 - ✅ **Höhere Sicherheit** durch weniger Angriffsfläche

@@ -85,8 +85,11 @@
 ### Optimierter Energieverbrauch
 - **Standby-Modus:** 0,20W (43% Reduktion gegenüber Standard)
 - **Betriebsmodus:** 18,20W (Lampe + Controller)
-- **ESP32-C3 SuperMini CPU Temperatur:** 50,6°C (20°C niedriger als Standard)
-- **Temperaturreduktion:** 20°C niedrigere Betriebstemperatur
+- **ESP32-C3 SuperMini CPU Temperatur:** 
+  - **Dokumentiert (unter Last):** 50,6°C (20°C niedriger als Standard)
+  - **Gemessen (Standby):** 43,9°C (26-27°C niedriger als Standard)
+  - **Typischer Bereich:** 44-51°C (je nach Last und Umgebungstemperatur)
+- **Temperaturreduktion:** 20-27°C niedrigere Betriebstemperatur (je nach Betriebszustand)
 - **Längere Lebensdauer:** Durch optimierte Betriebstemperatur
 
 **⚠️ Disclaimer:** Alle Angaben ohne Gewähr. Die Werte basieren auf Messungen unter spezifischen Bedingungen und können je nach Umgebung, Hardware-Variationen und Konfiguration abweichen.
@@ -149,7 +152,10 @@
 - **Boot-Zeit:** < 5 Sekunden
 - **Sensor-Update:** 10-60 Sekunden (je nach Sensor)
 - **Schaltzeit:** < 100ms (Relais)
-- **ESP32-C3 SuperMini CPU Temperatur:** 50,6°C (20°C niedriger als Standard)
+- **ESP32-C3 SuperMini CPU Temperatur:** 
+  - **Unter Last:** 50,6°C (20°C niedriger als Standard)
+  - **Standby:** 43,9°C (26-27°C niedriger als Standard)
+  - **Typischer Bereich:** 44-51°C
 
 ### Zuverlässigkeit
 - **Uptime:** Kontinuierliche Überwachung
@@ -353,7 +359,7 @@
 |---------|-------------------|---------------------|
 | **Verschlüsselung** | Oft unverschlüsselt | 256-Bit (Militärischer Standard) |
 | **Energieverbrauch** | ~0,35W Standby | 0,20W Standby (43% weniger) |
-| **ESP32-C3 SuperMini CPU Temperatur** | ~70°C | 50,6°C (20°C niedriger) |
+| **ESP32-C3 SuperMini CPU Temperatur** | ~70°C | 44-51°C (20-27°C niedriger, je nach Last) |
 | **Sicherheit** | ⭐⭐ (2/5) | ⭐⭐⭐⭐⭐ (5/5) |
 | **Diagnose** | Minimal | Umfassend |
 | **Updates** | Manuell | Over-The-Air |
