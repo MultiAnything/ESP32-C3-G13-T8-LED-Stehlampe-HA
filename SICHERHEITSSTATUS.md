@@ -255,9 +255,10 @@
 
 ### 🛡️ Zusätzliche Maßnahmen (optional):
 
-1. **IoT-VLAN** - Netzwerk-Isolation
-2. **Firewall-Regeln** - Router-Level-Schutz
-3. **Regelmäßige Updates** - ESPHome aktuell halten
+1. **Certificate Pinning** - Für externe HTTPS-Verbindungen (siehe `CERTIFICATE_PINNING.md`)
+2. **IoT-VLAN** - Netzwerk-Isolation
+3. **Firewall-Regeln** - Router-Level-Schutz
+4. **Regelmäßige Updates** - ESPHome aktuell halten
 
 ---
 

@@ -250,7 +250,13 @@ IoT-VLAN:
 
 ## 🛡️ Zusätzliche Sicherheitsmaßnahmen (Fortgeschritten)
 
-### 1. Certificate Pinning (für HA-Integration)
+### 1. Certificate Pinning (für externe HTTPS-Verbindungen)
+
+**Status:** ⚠️ Optional (nur bei externen HTTPS-APIs erforderlich)
+
+**Hinweis:** Certificate Pinning ist für die API-Kommunikation mit Home Assistant **nicht erforderlich**, da bereits das Noise Protocol Framework mit Verschlüsselung verwendet wird. Certificate Pinning ist nur relevant für externe HTTPS-Verbindungen (z.B. `http_request` Komponente).
+
+Siehe `CERTIFICATE_PINNING.md` für Details.
 ```yaml
 api:
   encryption:

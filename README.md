@@ -173,6 +173,7 @@ Das OTA-Passwort wird automatisch aus `secrets.yaml` verwendet.
 
 - **PRODUKTUEBERSICHT.md** - Vollständige Produktübersicht mit allen Features
 - **SICHERHEITSANALYSE.md** - Detaillierte Sicherheitsbewertung
+- **CERTIFICATE_PINNING.md** - Certificate Pinning für externe HTTPS-Verbindungen
 - **ENERGIEANALYSE.md** - Energieverbrauchsanalyse
 - **OTA_ERKLAERUNG.md** - Wie OTA funktioniert
 - **VERSCHLUESSELUNG.md** - Verschlüsselungsdetails
