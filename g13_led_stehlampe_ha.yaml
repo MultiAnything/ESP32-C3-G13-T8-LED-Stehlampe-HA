@@ -1,0 +1,260 @@
+substitutions:
+  name: g13-led-ultraslim-stehlampe
+  friendly_name: Stehlampe UltraSlim
+
+esphome:
+  name: ${name}
+  friendly_name: ${friendly_name}
+  name_add_mac_suffix: false
+  project:
+    name: esphome.g13-led-stehlampe
+    version: '1.0'
+
+esp32:
+  board: esp32-c3-devkitm-1
+  framework:
+    type: arduino
+    # Keine Version angegeben - ESPHome wählt automatisch die kompatible Version
+
+# Onboard LED wird ignoriert (kein Output-Pin = kein Energieverbrauch)
+# Die LED bleibt ungenutzt und verbraucht keine zusätzliche Energie
+
+
+# Logger
+logger:
+  level: INFO
+  # logs:
+  #   switch: DEBUG  # DEBUG ist nicht erlaubt wenn globales Level INFO ist
+
+# API für Home Assistant - VERSCHLÜSSELT (32-Byte Key = 256 Bit)
+api:
+  # Verschlüsselung mit Noise Protocol Framework aktiviert
+  # Der 32-Byte Key (256 Bit) ist bereits in secrets.yaml definiert
+  encryption:
+    key: !secret api_encryption_key
+  reboot_timeout: 15min
+
+# Safe Mode Komponente (erforderlich für safe_mode Switch)
+safe_mode:
+
+# OTA Update - MIT PASSWORT GESCHÜTZT
+ota:
+  - platform: esphome
+    password: !secret ota_password  # MD5-basierte Challenge-Response Authentifizierung
+    port: 3232
+
+# WiFi-Konfiguration mit Improv und Captive Portal
+# WiFi-Credentials können über Captive Portal oder Improv gesetzt werden
+wifi:
+  # WiFi wird über Improv oder Captive Portal konfiguriert
+  # Alternativ können hier auch statische Credentials gesetzt werden:
+  # ssid: !secret wifi_ssid
+  # password: !secret wifi_password
+  # fast_connect: true  # Nur möglich wenn statische WiFi-Credentials gesetzt sind
+  # power_save_mode: none  # Kann jetzt aktiviert werden, da Bluetooth deaktiviert ist
+  
+  # Fallback Access Point - MIT PASSWORT GESCHÜTZT
+  ap:
+    ssid: "G13-LED-Stehlampe"
+    password: !secret ap_password  # WPA2/WPA3 Verschlüsselung
+
+# Improv Serial - WiFi-Provisionierung über Serial (deaktiviert - Bluetooth komplett deaktiviert)
+# improv_serial:
+
+# Captive Portal für WiFi-Provisionierung (vorübergehend deaktiviert - spart Speicher beim Kompilieren)
+# captive_portal:
+
+# ESP32 Improv über Bluetooth LE (deaktiviert - Bluetooth komplett deaktiviert)
+# esp32_improv:
+#   authorizer: none
+
+# Web Server für Status (vorübergehend deaktiviert - spart Speicher beim Kompilieren)
+# web_server:
+#   port: 80
+#   version: 2
+#   include_internal: true
+
+# Zeit-Synchronisation mit Home Assistant
+time:
+  - platform: homeassistant
+    id: ha_time
+    on_time_sync:
+      - logger.log: "Zeit synchronisiert mit Home Assistant"
+
+# Status LED (deaktiviert - Onboard LED wird ignoriert, kein Energieverbrauch)
+# status_led:
+#   pin:
+#     number: GPIO8
+#     inverted: false
+
+# Relais-Schalter auf GPIO 5
+switch:
+  - platform: gpio
+    pin: GPIO5
+    name: "G13 LED Relais"
+    id: g13_relay
+    inverted: false
+    restore_mode: RESTORE_DEFAULT_OFF
+    interlock: []
+  
+  - platform: restart
+    name: "Neustart"
+    entity_category: config
+  
+  - platform: safe_mode
+    name: "Safe Mode"
+    entity_category: config
+
+# One-Wire Bus für DS18B20 an GPIO4
+one_wire:
+  - platform: gpio
+    pin: GPIO4
+
+# Sensoren
+sensor:
+  # Interne ESP32 Temperatur
+  - platform: internal_temperature
+    name: "Internal Temp"
+    id: esp32_temperature
+    update_interval: 30s
+    unit_of_measurement: "°C"
+    accuracy_decimals: 1
+    device_class: temperature
+    state_class: measurement
+  
+  # Externe DS18B20/DS18S20 Temperatur an GPIO4
+  - platform: dallas_temp
+    # address wird automatisch erkannt, falls nur ein Sensor am Bus
+    # Falls mehrere Sensoren: Adresse aus Logs entnehmen und hier eintragen
+    name: "External Temp"
+    id: ds18b20_temperature
+    update_interval: 30s
+    unit_of_measurement: "°C"
+    accuracy_decimals: 1
+    device_class: temperature
+    state_class: measurement
+    # resolution: 12  # Entfernt - DS18S20 unterstützt keine Resolution-Einstellung
+  
+  # WiFi Signalstärke
+  - platform: wifi_signal
+    name: "WiFi Signal"
+    id: wifi_signal_raw
+    update_interval: 30s
+    unit_of_measurement: "dBm"
+    accuracy_decimals: 0
+    device_class: signal_strength
+    state_class: measurement
+    filters:
+      - filter_out: nan
+    # WiFi Signal Bereich: -100 dBm (schlecht) bis -30 dBm (sehr gut)
+  
+  # Uptime
+  - platform: uptime
+    name: "Uptime"
+    update_interval: 60s
+    entity_category: diagnostic
+  
+  # Energieverbrauch - Leistung (basierend auf Lampenstatus)
+  - platform: template
+    name: "Energieverbrauch Leistung"
+    id: power_consumption
+    lambda: |-
+      // Lampenstatus prüfen
+      bool lamp_on = id(g13_relay).state;
+      
+      if (lamp_on) {
+        // Lampe an: 18W (Lampe) + 0.20W (ESP32-C3 optimiert, ohne Bluetooth/Web Server)
+        return 18.20f;
+      } else {
+        // Lampe aus: Nur ESP32-C3 Standby-Verbrauch
+        // ESP32-C3 optimiert: ~0.20W (gemessen: Temp-Reduktion von 70.6°C auf 50.6°C = -20°C)
+        // Vorher: ~0.35W (mit Bluetooth/Web Server)
+        // Nachher: ~0.20W (ohne Bluetooth/Web Server) = 43% Reduktion
+        return 0.20f;
+      }
+    unit_of_measurement: "W"
+    accuracy_decimals: 2
+    device_class: power
+    state_class: measurement
+    update_interval: 10s
+  
+  # Energieverbrauch - Energie (kumulativ)
+  - platform: total_daily_energy
+    name: "Energieverbrauch Täglich"
+    power_id: power_consumption
+    unit_of_measurement: "kWh"
+    accuracy_decimals: 4
+    device_class: energy
+    state_class: total_increasing
+    filters:
+      - multiply: 0.001  # Umrechnung von Wh zu kWh
+
+# Text Sensoren
+text_sensor:
+  - platform: wifi_info
+    ip_address:
+      name: "IP Adresse"
+      entity_category: diagnostic
+    ssid:
+      name: "WiFi SSID"
+      entity_category: diagnostic
+    mac_address:
+      name: "MAC Adresse"
+      entity_category: diagnostic
+  
+  - platform: version
+    name: "ESPHome Version"
+    entity_category: diagnostic
+  
+  # Template Text Sensor für WiFi Signalqualität
+  - platform: template
+    name: "WiFi Signalqualität"
+    id: wifi_signal_quality
+    lambda: |-
+      float signal = id(wifi_signal_raw).state;
+      if (isnan(signal)) {
+        return {"Schlecht"};
+      }
+      if (signal > -50.0f) {
+        return {"Sehr gut"};
+      } else if (signal > -70.0f) {
+        return {"Gut"};
+      } else if (signal > -85.0f) {
+        return {"Mittel"};
+      } else {
+        return {"Schlecht"};
+      }
+    update_interval: 30s
+    entity_category: diagnostic
+  
+  # Template Text Sensor für WiFi Signal Status (für Farbanzeige)
+  - platform: template
+    name: "WiFi Signal Status"
+    id: wifi_signal_status
+    lambda: |-
+      float signal = id(wifi_signal_raw).state;
+      if (isnan(signal)) {
+        return {"rot"};
+      }
+      if (signal > -50.0f) {
+        return {"grün"};
+      } else if (signal > -70.0f) {
+        return {"orange"};
+      } else {
+        return {"rot"};
+      }
+    update_interval: 30s
+    entity_category: diagnostic
+
+# Binary Sensoren
+binary_sensor:
+  - platform: status
+    name: "Status"
+    entity_category: diagnostic
+
+# Interne Komponenten (vorübergehend deaktiviert - spart Speicher beim Kompilieren)
+# interval:
+#   - interval: 30s
+#     then:
+#       - logger.log: "G13 LED Stehlampe läuft"
+

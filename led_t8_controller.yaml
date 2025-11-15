@@ -1,0 +1,179 @@
+esphome:
+  name: g13-led-ultraslim-stehlampe
+  friendly_name: G13 LED UltraSlim Stehlampe
+  platform: ESP32
+  board: esp32-c3-devkitm-1
+  platformio_options:
+    board_build.f_cpu: 160000000L
+
+esp32:
+  framework:
+    type: arduino
+    version: recommended
+  board: esp32-c3-devkitm-1
+  variant: esp32c3
+
+# WiFi-Konfiguration
+wifi:
+  ssid: !secret wifi_ssid
+  password: !secret wifi_password
+  fast_connect: true
+  power_save_mode: none
+  
+  # Fallback Hotspot
+  ap:
+    ssid: "G13-LED-Stehlampe Fallback"
+    password: !secret ap_password
+
+# OTA Update mit Passwort
+ota:
+  - platform: esphome
+    password: !secret ota_password
+    safe_mode: true
+    port: 3232
+
+# API für Home Assistant
+api:
+  encryption:
+    key: !secret api_encryption_key
+  reboot_timeout: 15min
+
+# Zeit-Synchronisation mit Home Assistant
+time:
+  - platform: homeassistant
+    id: ha_time
+    on_sync:
+      - logger.log: "Zeit synchronisiert: %02d:%02d:%02d"
+        args: ['time.now().hour', 'time.now().minute', 'time.now().second']
+
+# Web Server für Status
+web_server:
+  port: 80
+  version: 2
+  include_internal: true
+
+# Logger
+logger:
+  level: INFO
+  logs:
+    switch: DEBUG
+
+# Status LED (falls vorhanden)
+status_led:
+  pin:
+    number: GPIO8
+    inverted: false
+
+# Relais-Schalter auf GPIO 5
+switch:
+  - platform: gpio
+    pin: GPIO5
+    name: "G13 LED Relais"
+    id: g13_relay
+    inverted: false
+    restore_mode: RESTORE_DEFAULT_OFF
+    interlock: []
+  
+  - platform: restart
+    name: "Neustart"
+    entity_category: config
+  
+  - platform: safe_mode
+    name: "Safe Mode"
+    entity_category: config
+
+# Sensoren (optional)
+sensor:
+  - platform: internal_temperature
+    name: "ESP32 Temperatur"
+    id: esp32_temperature
+    update_interval: 30s
+    unit_of_measurement: "°C"
+    accuracy_decimals: 1
+    device_class: temperature
+    state_class: measurement
+  
+  - platform: wifi_signal
+    name: "WiFi Signal"
+    id: wifi_signal_raw
+    update_interval: 30s
+    unit_of_measurement: "dBm"
+    accuracy_decimals: 0
+    device_class: signal_strength
+    state_class: measurement
+    filters:
+      - filter_out: nan
+      - filter_out: inf
+    # WiFi Signal Bereich: -100 dBm (schlecht) bis -30 dBm (sehr gut)
+  
+  - platform: uptime
+    name: "Uptime"
+    update_interval: 60s
+    entity_category: diagnostic
+
+# Text Sensoren
+text_sensor:
+  - platform: wifi_info
+    ip_address:
+      name: "IP Adresse"
+    ssid:
+      name: "WiFi SSID"
+    mac_address:
+      name: "MAC Adresse"
+    entity_category: diagnostic
+  
+  - platform: version
+    name: "ESPHome Version"
+    entity_category: diagnostic
+  
+  # Template Text Sensor für WiFi Signalqualität
+  - platform: template
+    name: "WiFi Signalqualität"
+    id: wifi_signal_quality
+    lambda: |-
+      float signal = id(wifi_signal_raw).state;
+      if (isnan(signal)) {
+        return {"Schlecht"};
+      }
+      if (signal > -50.0f) {
+        return {"Sehr gut"};
+      } else if (signal > -70.0f) {
+        return {"Gut"};
+      } else if (signal > -85.0f) {
+        return {"Mittel"};
+      } else {
+        return {"Schlecht"};
+      }
+    update_interval: 30s
+    entity_category: diagnostic
+  
+  # Template Text Sensor für WiFi Signal Status (für Farbanzeige)
+  - platform: template
+    name: "WiFi Signal Status"
+    id: wifi_signal_status
+    lambda: |-
+      float signal = id(wifi_signal_raw).state;
+      if (isnan(signal)) {
+        return {"rot"};
+      }
+      if (signal > -50.0f) {
+        return {"grün"};
+      } else if (signal > -70.0f) {
+        return {"orange"};
+      } else {
+        return {"rot"};
+      }
+    update_interval: 30s
+    entity_category: diagnostic
+
+# Binary Sensoren
+binary_sensor:
+  - platform: status
+    name: "Status"
+    entity_category: diagnostic
+
+# Interne Komponenten
+interval:
+  - interval: 30s
+    then:
+      - logger.log: "G13 LED Stehlampe läuft"

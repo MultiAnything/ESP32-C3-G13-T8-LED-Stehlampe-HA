@@ -1,0 +1,72 @@
+# ESPHome Secrets - NIEMALS committen!
+secrets.yaml
+*.secret
+*.key
+
+# ESPHome Build-Verzeichnisse
+.esphome/
+.pioenvs/
+.pio/
+
+# Python Virtual Environment
+esphome-env/
+venv/
+env/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Build-Artefakte
+*.bin
+*.elf
+*.hex
+*.map
+*.log
+build/
+dist/
+
+# PlatformIO
+.platformio/
+platformio.ini.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Temporäre Dateien
+*.tmp
+*.temp
+*.bak
+*.backup
+*~
+
+# Log-Dateien
+*.log
+bootlog*.txt
+
+# Test-Dateien
+test/
+temp_*.yaml
+
+# Kompilierte Dateien
+*.o
+*.a
+*.so
+*.dylib
+
+# Dokumentation mit sensiblen Daten (falls vorhanden)
+*_SICHER*.md
+*_SICHER*.yaml
+
+# Dateien mit Passwörtern (werden bereinigt, aber zur Sicherheit)
+PASSWORT_INFO.md
