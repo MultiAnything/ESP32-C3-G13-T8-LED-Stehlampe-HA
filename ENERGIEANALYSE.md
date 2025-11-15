@@ -3,17 +3,19 @@
 ## 📊 Gemessene Werte
 
 ### Vorher (mit Bluetooth & Web Server):
-- **CPU-Temperatur:** 70,6°C
+- **ESP32-C3 SuperMini CPU Temperatur:** 70,6°C
 - **Flash-Verbrauch:** 84,1% (1.542.842 Bytes)
 - **RAM-Verbrauch:** 17,1% (56.036 Bytes)
 
 ### Nachher (ohne Bluetooth & Web Server):
-- **CPU-Temperatur:** 50,6°C
+- **ESP32-C3 SuperMini CPU Temperatur:** 50,6°C
 - **Flash-Verbrauch:** 49,9% (914.966 Bytes)
 - **RAM-Verbrauch:** 11,1% (36.356 Bytes)
 
 ### Temperaturreduktion:
 - **ΔT = 20,0°C** (70,6°C → 50,6°C)
+
+**⚠️ Disclaimer:** Alle Angaben ohne Gewähr. Die Werte basieren auf Messungen unter spezifischen Bedingungen und können je nach Umgebung, Hardware-Variationen und Konfiguration abweichen.
 
 ---
 
@@ -166,7 +168,7 @@
 
 | Metrik | Vorher | Nachher | Verbesserung |
 |--------|--------|---------|--------------|
-| **CPU-Temperatur** | 70,6°C | 50,6°C | **-20,0°C** (-28%) |
+| **ESP32-C3 SuperMini CPU Temperatur** | 70,6°C | 50,6°C | **-20,0°C** (-28%) |
 | **Flash-Verbrauch** | 84,1% | 49,9% | **-34,2%** |
 | **RAM-Verbrauch** | 17,1% | 11,1% | **-6,0%** |
 | **Energieverbrauch (Standby)** | ~0,65 W | ~0,35 W | **-0,30 W** (-46%) |
@@ -191,6 +193,7 @@
 
 ### Temperaturreduktion:
 
+- **ESP32-C3 SuperMini CPU Temperatur:** 50,6°C (20°C niedriger als Standard)
 - **20,0°C Reduktion** (70,6°C → 50,6°C)
 - **28% relative Reduktion**
 - Deutlich unter kritischer Temperatur (85°C)
@@ -264,4 +267,10 @@
 - ✅ **Höhere Sicherheit** durch weniger Angriffsfläche
 
 **Das ist ein ausgezeichnetes Ergebnis!** 🎉
+
+---
+
+**Autor:** MultiAnything - [@MultiAnything](https://github.com/MultiAnything)  
+**Lizenz:** Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)  
+**⚠️ Disclaimer:** Alle Angaben ohne Gewähr. Die Werte basieren auf Messungen unter spezifischen Bedingungen und können je nach Umgebung, Hardware-Variationen und Konfiguration abweichen.
 

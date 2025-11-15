@@ -85,8 +85,11 @@
 ### Optimierter Energieverbrauch
 - **Standby-Modus:** 0,20W (43% Reduktion gegenüber Standard)
 - **Betriebsmodus:** 18,20W (Lampe + Controller)
+- **ESP32-C3 SuperMini CPU Temperatur:** 50,6°C (20°C niedriger als Standard)
 - **Temperaturreduktion:** 20°C niedrigere Betriebstemperatur
 - **Längere Lebensdauer:** Durch optimierte Betriebstemperatur
+
+**⚠️ Disclaimer:** Alle Angaben ohne Gewähr. Die Werte basieren auf Messungen unter spezifischen Bedingungen und können je nach Umgebung, Hardware-Variationen und Konfiguration abweichen.
 
 ### Optimierungen
 - **Bluetooth deaktiviert:** 46% Energieeinsparung im Standby
@@ -146,7 +149,7 @@
 - **Boot-Zeit:** < 5 Sekunden
 - **Sensor-Update:** 10-60 Sekunden (je nach Sensor)
 - **Schaltzeit:** < 100ms (Relais)
-- **Temperatur:** 50,6°C (optimiert, vorher 70,6°C)
+- **ESP32-C3 SuperMini CPU Temperatur:** 50,6°C (20°C niedriger als Standard)
 
 ### Zuverlässigkeit
 - **Uptime:** Kontinuierliche Überwachung
@@ -350,7 +353,7 @@
 |---------|-------------------|---------------------|
 | **Verschlüsselung** | Oft unverschlüsselt | 256-Bit (Militärischer Standard) |
 | **Energieverbrauch** | ~0,35W Standby | 0,20W Standby (43% weniger) |
-| **Temperatur** | ~70°C | 50°C (20°C niedriger) |
+| **ESP32-C3 SuperMini CPU Temperatur** | ~70°C | 50,6°C (20°C niedriger) |
 | **Sicherheit** | ⭐⭐ (2/5) | ⭐⭐⭐⭐⭐ (5/5) |
 | **Diagnose** | Minimal | Umfassend |
 | **Updates** | Manuell | Over-The-Air |
@@ -403,5 +406,7 @@
 **Version:** 1.0  
 **Letzte Aktualisierung:** 2025  
 **Firmware:** ESPHome 2025.5.2  
-**Hardware:** ESP32-C3 DevKitM-1
+**Hardware:** ESP32-C3 DevKitM-1  
+**Autor:** MultiAnything - [@MultiAnything](https://github.com/MultiAnything)  
+**Lizenz:** Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)
 

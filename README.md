@@ -124,7 +124,9 @@ Siehe `SICHERHEITSANALYSE.md` für Details.
 
 - **Standby:** 0,20W (43% Reduktion gegenüber Standard)
 - **Betrieb:** 18,20W (Lampe + Controller)
-- **Temperatur:** 50,6°C (20°C niedriger als Standard)
+- **ESP32-C3 SuperMini CPU Temperatur:** 50,6°C (20°C niedriger als Standard)
+
+**⚠️ Disclaimer:** Alle Angaben ohne Gewähr. Die Werte basieren auf Messungen unter spezifischen Bedingungen und können je nach Umgebung, Hardware-Variationen und Konfiguration abweichen.
 
 Siehe `ENERGIEANALYSE.md` für Details.
 
@@ -221,11 +223,22 @@ Siehe `DOKUMENTATION.md` für häufige Probleme und Lösungen.
 
 ## 📄 Lizenz
 
-[Lizenz hier einfügen]
+Dieses Projekt ist lizenziert unter der **Creative Commons Attribution-NonCommercial 4.0 International License** (CC BY-NC 4.0).
+
+**Erlaubt:**
+- ✅ Teilen und Kopieren des Materials
+- ✅ Anpassen und Modifizieren
+- ✅ Verwendung für nicht-kommerzielle Zwecke
+
+**Nicht erlaubt:**
+- ❌ Kommerzielle Nutzung ohne Genehmigung
+- ❌ Verwendung ohne Namensnennung
+
+Siehe [LICENSE](LICENSE) für vollständige Lizenzbedingungen.
 
 ## 👤 Autor
 
-[Dein Name hier]
+**MultiAnything** - [@MultiAnything](https://github.com/MultiAnything)
 
 ## 🙏 Danksagungen
 
